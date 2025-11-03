@@ -5,6 +5,7 @@ services:
       - NGINX_TEMPLATE=magento2.conf
 
   php-fpm:
+    image: <username>/warden-php-magento-mail-fix:latest
     labels:
       - traefik.enable=true
       - traefik.http.routers.${WARDEN_ENV_NAME}-livereload.tls=true
@@ -17,6 +18,8 @@ services:
       - traefik.docker.network=${WARDEN_ENV_NAME}_default
     environment:
       - MAGE_DEBUG_SHOW_ARGS=1
+      - MAILHOG_HOST=mailpit
+      - MAILHOG_PORT=1025
 
   php-debug:
     environment:
